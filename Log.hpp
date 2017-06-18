@@ -6,23 +6,14 @@
 #include<iomanip>
 #include<ctime>
 
-#define LOG_VER Log::logger.log(eVerbose)
-#define LOG_DEB Log::logger.log(eDebug)
-#define LOG_WRN Log::logger.log(eWarning)
-#define LOG_ERR Log::logger.log(eError)
-
-enum Severity
-{
-        eVerbose,
-        eDebug,
-        eWarning,
-        eError
-};
-
-class Log
-{
+class Log {
 public:
-        static Log logger;
+        enum Severity {
+                VERBOSE,
+                DEBUG,
+                WARNING,
+                ERROR
+        };
 
         Log(std::ostream& os)
                 : os(os)
@@ -47,23 +38,46 @@ public:
                 os << std::endl << std::put_time(tm, "%H:%M:%S ");
 
                 switch(severity) {
-                        case eVerbose:
+                        case VERBOSE:
                                 os << "ver: ";
                                 break;
-                        case eDebug:
+                        case DEBUG:
                                 os << "dbg: ";
                                 break;
-                        case eWarning:
+                        case WARNING:
                                 os << "wrn: ";
                                 warningCount++;
                                 break;
-                        case eError:
+                        case ERROR:
                                 os << "err: ";
                                 errorCount++;
                                 break;
                 }
 
                 return os;
+        }
+
+        /* Singleton */
+        static Log logger;
+
+        static std::ostream& v()
+        {
+                return logger.log(VERBOSE);
+        }
+
+        static std::ostream& d()
+        {
+                return logger.log(DEBUG);
+        }
+
+        static std::ostream& w()
+        {
+                return logger.log(WARNING);
+        }
+
+        static std::ostream& e()
+        {
+                return logger.log(ERROR);
         }
 
 private:

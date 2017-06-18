@@ -2,8 +2,9 @@
 
 int main()
 {
-        LOG_ERR << "test";
-        LOG_DEB << "test";
-        LOG_VER << "test" << 20;
+        Log::e() << "test";
+        Log::d() << "test";
+        Log::v() << "test" << 20;
+
         return 0;
 }
