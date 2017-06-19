@@ -1,10 +1,10 @@
 #ifndef LOG_HPP
 #define LOG_HPP
 
-#include<iostream>
-#include<sstream>
-#include<iomanip>
-#include<ctime>
+#include <iostream>
+#include <sstream>
+#include <iomanip>
+#include <ctime>
 
 #define LOG Log::logger
 
