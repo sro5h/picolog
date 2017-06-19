@@ -35,6 +35,12 @@ public:
 
         Log& operator<<(const Severity& severity)
         {
+                currentSeverity = severity;
+
+                if (currentSeverity < minSeverity) {
+                        return *this;
+                }
+
                 std::time_t t = std::time(nullptr);
                 std::tm* tm = std::localtime(&t);
 
@@ -63,7 +69,12 @@ public:
         template< class T >
         Log& operator<<(const T& t)
         {
+                if (currentSeverity < minSeverity) {
+                        return *this;
+                }
+
                 os << t;
+
                 return *this;
         }
 
@@ -87,11 +98,19 @@ public:
                 return *this << ERROR;
         }
 
+        void setMinSeverity(const Severity& severity)
+        {
+                minSeverity = severity;
+        }
+
         /* Singleton */
         static Log logger;
 
 private:
         std::ostream& os;
+
+        Severity currentSeverity = VERBOSE;
+        Severity minSeverity = VERBOSE;
 
         int errorCount = 0;
         int warningCount = 0;
