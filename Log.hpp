@@ -46,7 +46,7 @@ public:
 
                 os << std::endl << std::put_time(tm, "%H:%M:%S ");
 
-                switch(severity) {
+                switch (severity) {
                         case VERBOSE:
                                 os << "ver: ";
                                 break;
@@ -66,7 +66,7 @@ public:
                 return *this;
         }
 
-        template< class T >
+        template<class T>
         Log& operator<<(const T& t)
         {
                 if (currentSeverity < minSeverity) {
