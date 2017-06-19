@@ -2,9 +2,8 @@
 
 int main()
 {
-        Log::e() << "test";
-        Log::d() << "test";
-        Log::v() << "test" << 20;
+        LOG << Log::DEBUG << "Test";
+        LOG.e() << "ERROR";
 
         return 0;
 }

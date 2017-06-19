@@ -6,6 +6,8 @@
 #include<iomanip>
 #include<ctime>
 
+#define LOG Log::logger
+
 class Log {
 public:
         enum Severity {
@@ -18,19 +20,20 @@ public:
         Log(std::ostream& os)
                 : os(os)
         {
-                os << "log initialized" << std::endl;
+                os << "-- beginning of log" << std::endl;
         }
 
         ~Log()
         {
-                os << std::endl << std::endl << std::endl;
+                os << std::endl << std::endl;
 
                 // Report number of errors and warnings
-                os << warningCount << " warnings" << std::endl;
-                os << errorCount << " errors" << std::endl;
+                os << "-- summary" << std::endl;
+                os << "-- " << warningCount << " warnings" << std::endl;
+                os << "-- " << errorCount << " errors" << std::endl;
         }
 
-        std::ostream& log(Severity severity)
+        Log& operator<<(const Severity& severity)
         {
                 std::time_t t = std::time(nullptr);
                 std::tm* tm = std::localtime(&t);
@@ -54,31 +57,38 @@ public:
                                 break;
                 }
 
-                return os;
+                return *this;
+        }
+
+        template< class T >
+        Log& operator<<(const T& t)
+        {
+                os << t;
+                return *this;
+        }
+
+        Log& v()
+        {
+                return *this << VERBOSE;
+        }
+
+        Log& d()
+        {
+                return *this << DEBUG;
+        }
+
+        Log& w()
+        {
+                return *this << WARNING;
+        }
+
+        Log& e()
+        {
+                return *this << ERROR;
         }
 
         /* Singleton */
         static Log logger;
-
-        static std::ostream& v()
-        {
-                return logger.log(VERBOSE);
-        }
-
-        static std::ostream& d()
-        {
-                return logger.log(DEBUG);
-        }
-
-        static std::ostream& w()
-        {
-                return logger.log(WARNING);
-        }
-
-        static std::ostream& e()
-        {
-                return logger.log(ERROR);
-        }
 
 private:
         std::ostream& os;
