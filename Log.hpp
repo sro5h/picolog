@@ -1,12 +1,9 @@
 #ifndef LOG_HPP
 #define LOG_HPP
 
-#include <iostream>
 #include <sstream>
 #include <iomanip>
 #include <ctime>
-
-#define LOG Log::logger
 
 class Log {
 public:
@@ -20,17 +17,14 @@ public:
         Log(std::ostream& os)
                 : os(os)
         {
-                os << "-- beginning of log" << std::endl;
         }
 
         ~Log()
         {
-                os << std::endl << std::endl;
-
                 // Report number of errors and warnings
-                os << "-- summary" << std::endl;
-                os << "-- " << warningCount << " warnings" << std::endl;
-                os << "-- " << errorCount << " errors" << std::endl;
+                this->v() << "summary" << std::endl;
+                this->v() << warningCount << " warnings" << std::endl;
+                this->v() << errorCount << " errors" << std::endl;
         }
 
         Log& operator<<(const Severity& severity)
@@ -44,7 +38,7 @@ public:
                 std::time_t t = std::time(nullptr);
                 std::tm* tm = std::localtime(&t);
 
-                os << std::endl << std::put_time(tm, "%H:%M:%S ");
+                os << std::put_time(tm, "%H:%M:%S-");
 
                 switch (severity) {
                         case VERBOSE:
@@ -103,8 +97,11 @@ public:
                 minSeverity = severity;
         }
 
-        /* Singleton */
-        static Log logger;
+        typedef std::ostream& (*ostream_manipulator)(std::ostream&);
+        Log& operator<<(ostream_manipulator om)
+        {
+                return operator<< <ostream_manipulator> (om);
+        }
 
 private:
         std::ostream& os;
@@ -115,7 +112,5 @@ private:
         int errorCount = 0;
         int warningCount = 0;
 };
-
-Log Log::logger = Log(std::cout);
 
 #endif

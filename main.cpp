@@ -1,12 +1,15 @@
 #include "Log.hpp"
+#include <iostream>
+
+Log log = Log(std::cout);
 
 int main()
 {
-        LOG.setMinSeverity(Log::WARNING);
+        log.setMinSeverity(Log::VERBOSE);
 
-        LOG << Log::DEBUG << "Test";
-        LOG.e() << "ERROR";
-        Log::logger.w() << "Count should not be " << 4;
+        log << Log::DEBUG << "Test" << std::endl;
+        log.e() << "ERROR" << std::endl;
+        log.w() << "Count should not be " << 4 << std::endl;
 
         return 0;
 }
