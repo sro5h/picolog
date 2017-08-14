@@ -1,3 +1,4 @@
+#define PICOLOG_IMPL
 #include "picolog.hpp"
 #include <iostream>
 
