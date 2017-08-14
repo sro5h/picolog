@@ -1,4 +1,4 @@
-#include "Log.hpp"
+#include "picolog.hpp"
 #include <iostream>
 
 Log log = Log(std::cout);
