@@ -1,3 +1,17 @@
+/*
+   picolog.hpp - 1.0
+
+   Author:
+        Paul Meffle
+
+   Summary:
+        picolog is a single-file header that implements a simple log class that
+        uses stream semantics.
+
+   Revision history:
+        1.0   (14.08.2017) initial release
+*/
+
 #ifndef _PICOLOG_HPP
 #define _PICOLOG_HPP
 
