@@ -1,5 +1,5 @@
 /*
-   picolog.hpp - 1.0
+   picolog.hpp - 1.0.1
 
    Author:
         Paul Meffle
@@ -10,6 +10,7 @@
 
    Revision history:
         1.0   (14.08.2017) initial release
+        1.0.1 (12.09.2017) remove summary
 */
 
 #ifndef _PICOLOG_HPP
