@@ -30,8 +30,6 @@ public:
 
         Log(std::ostream& os);
 
-        ~Log();
-
         Log& operator<<(const Severity& severity);
 
         template<class T>
@@ -56,9 +54,6 @@ private:
 
         Severity currentSeverity = VERBOSE;
         Severity minSeverity = VERBOSE;
-
-        int errorCount = 0;
-        int warningCount = 0;
 };
 
 #endif // _PICOLOG_HPP
@@ -68,14 +63,6 @@ private:
 Log::Log(std::ostream& os)
         : os(os)
 {
-}
-
-Log::~Log()
-{
-        // Report number of errors and warnings
-        this->v() << "summary" << std::endl;
-        this->v() << warningCount << " warnings" << std::endl;
-        this->v() << errorCount << " errors" << std::endl;
 }
 
 Log& Log::operator<<(const Severity& severity)
@@ -100,11 +87,9 @@ Log& Log::operator<<(const Severity& severity)
                         break;
                 case WARNING:
                         os << "wrn: ";
-                        warningCount++;
                         break;
                 case ERROR:
                         os << "err: ";
-                        errorCount++;
                         break;
         }
 
