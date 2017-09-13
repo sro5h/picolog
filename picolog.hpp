@@ -23,31 +23,81 @@
 class Log {
 public:
         enum Severity {
-                VERBOSE,
+                VERBOSE = 0,
                 DEBUG,
                 WARNING,
                 ERROR
         };
 
+        /**
+         * @param os The std::ostream to ouput to
+         */
         Log(std::ostream& os);
 
+        /**
+         * Outputs the current time followed by a short form of the severity.
+         *
+         * @param severity The severity to use
+         *
+         * @return A reference to '*this'
+         */
         Log& operator<<(const Severity& severity);
 
+        /**
+         * Outputs 't' to the stream.
+         *
+         * @param t The object to log
+         *
+         * @return A reference to '*this'
+         */
         template<class T>
         Log& operator<<(const T& t);
 
+        /**
+         * A shortcut for '*this << VERBOSE'.
+         *
+         * @return A reference to '*this'
+         */
         Log& v();
 
+        /**
+         * A shortcut for '*this << DEBUG'.
+         *
+         * @return A reference to '*this'
+         */
         Log& d();
 
+        /**
+         * A shortcut for '*this << WARNING'.
+         *
+         * @return A reference to '*this'
+         */
         Log& w();
 
+        /**
+         * A shortcut for '*this << ERROR'.
+         *
+         * @return A reference to '*this'
+         */
         Log& e();
 
+        /**
+         * Set the minimum severity for all following output. Output with a
+         * severity lower than 'severity' will be ignored.
+         *
+         * @param severity The new minimum severity
+         */
         void setMinSeverity(const Severity& severity);
 
         typedef std::ostream& (*ostream_manipulator)(std::ostream&);
 
+        /**
+         * Required for use with stream manipulators like std::endl.
+         *
+         * @param om The stream manipulator to pass to 'os'
+         *
+         * @return A reference to '*this'
+         */
         Log& operator<<(ostream_manipulator om);
 
 private:
