@@ -24,10 +24,10 @@
 class Log {
 public:
         enum Severity {
-                VERBOSE = 0,
-                DEBUG,
-                WARNING,
-                ERROR
+                Verbose = 0,
+                Debug,
+                Warning,
+                Error
         };
 
         /**
@@ -42,7 +42,7 @@ public:
          *
          * @return A reference to '*this'
          */
-        Log& operator<<(const Severity& severity);
+        Log& operator()(const Severity& severity);
 
         /**
          * Outputs 't' to the stream.
@@ -53,34 +53,6 @@ public:
          */
         template<class T>
         Log& operator<<(const T& t);
-
-        /**
-         * A shortcut for '*this << VERBOSE'.
-         *
-         * @return A reference to '*this'
-         */
-        Log& v();
-
-        /**
-         * A shortcut for '*this << DEBUG'.
-         *
-         * @return A reference to '*this'
-         */
-        Log& d();
-
-        /**
-         * A shortcut for '*this << WARNING'.
-         *
-         * @return A reference to '*this'
-         */
-        Log& w();
-
-        /**
-         * A shortcut for '*this << ERROR'.
-         *
-         * @return A reference to '*this'
-         */
-        Log& e();
 
         /**
          * Set the minimum severity for all following output. Output with a
@@ -104,8 +76,8 @@ public:
 private:
         std::ostream& os;
 
-        Severity currentSeverity = VERBOSE;
-        Severity minSeverity = VERBOSE;
+        Severity currentSeverity = Verbose;
+        Severity minSeverity = Verbose;
 };
 
 #endif // _PICOLOG_HPP
@@ -117,7 +89,7 @@ Log::Log(std::ostream& os)
 {
 }
 
-Log& Log::operator<<(const Severity& severity)
+Log& Log::operator()(const Severity& severity)
 {
         currentSeverity = severity;
 
@@ -131,16 +103,16 @@ Log& Log::operator<<(const Severity& severity)
         os << std::put_time(tm, "%H:%M:%S-");
 
         switch (severity) {
-                case VERBOSE:
+                case Verbose:
                         os << "ver: ";
                         break;
-                case DEBUG:
+                case Debug:
                         os << "dbg: ";
                         break;
-                case WARNING:
+                case Warning:
                         os << "wrn: ";
                         break;
-                case ERROR:
+                case Error:
                         os << "err: ";
                         break;
         }
@@ -158,26 +130,6 @@ Log& Log::operator<<(const T& t)
         os << t;
 
         return *this;
-}
-
-Log& Log::v()
-{
-        return *this << VERBOSE;
-}
-
-Log& Log::d()
-{
-        return *this << DEBUG;
-}
-
-Log& Log::w()
-{
-        return *this << WARNING;
-}
-
-Log& Log::e()
-{
-        return *this << ERROR;
 }
 
 void Log::setMinSeverity(const Severity& severity)
