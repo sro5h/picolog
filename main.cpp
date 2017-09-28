@@ -12,6 +12,7 @@ int main()
         log(Log::Error) << "ERROR" << std::endl;
         log(Log::Warning) << "Count should not be " << 4 << std::endl;
         log(Log::Verbose) << "TEST" << std::endl;
+        log() << "Some debug log" << std::endl;
 
         return 0;
 }

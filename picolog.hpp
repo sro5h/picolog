@@ -46,6 +46,13 @@ public:
         Log& operator()(const Severity& severity);
 
         /**
+         * A shortcut for `log(Log::Debug)`.
+         *
+         * @return A reference to '*this'
+         */
+        Log& operator()();
+
+        /**
          * Outputs 't' to the stream.
          *
          * @param t The object to log
@@ -119,6 +126,11 @@ Log& Log::operator()(const Severity& severity)
         }
 
         return *this;
+}
+
+Log& Log::operator()()
+{
+        return (*this)(Log::Debug);
 }
 
 template<class T>
