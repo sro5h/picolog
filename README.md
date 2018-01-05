@@ -20,6 +20,7 @@ std::ofstream file;
 file.open("test.txt");
 
 Log log(file);
+log.d() << "This is a test" << std::endl;
 
 // Don't forget to close the file when you are done with logging
 file.close();
