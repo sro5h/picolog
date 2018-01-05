@@ -2,17 +2,15 @@
 #include "picolog.hpp"
 #include <iostream>
 
-Log log(std::cout);
-
 int main()
 {
-        log.setMinSeverity(Log::Verbose);
+        log().setMinSeverity(Log::Verbose);
 
-        log(Log::Debug) << "Test" << std::endl;
-        log(Log::Error) << "ERROR" << std::endl;
-        log(Log::Warning) << "Count should not be " << 4 << std::endl;
-        log(Log::Verbose) << "TEST" << std::endl;
-        log() << "Some debug log" << std::endl;
+        log().d() << "Test" << std::endl;
+        log().e() << "ERROR" << std::endl;
+        log().w() << "Count should not be " << 4 << std::endl;
+        log().d() << "TEST" << std::endl;
+        log().d() << "Some debug log" << std::endl;
 
         return 0;
 }

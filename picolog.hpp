@@ -21,8 +21,6 @@
 #define _PICOLOG_HPP
 
 #include <sstream>
-#include <iomanip>
-#include <ctime>
 
 class Log {
 public:
@@ -83,6 +81,34 @@ public:
          */
         Log& operator<<(ostream_manipulator om);
 
+        /**
+         * A shortcut to operator()(Severity::Verbose)
+         *
+         * @return A reference to '*this'
+         */
+        Log& v();
+
+        /**
+         * A shortcut to operator()(Severity::Debug)
+         *
+         * @return A reference to '*this'
+         */
+        Log& d();
+
+        /**
+         * A shortcut to operator()(Severity::Warning)
+         *
+         * @return A reference to '*this'
+         */
+        Log& w();
+
+        /**
+         * A shortcut to operator()(Severity::Error)
+         *
+         * @return A reference to '*this'
+         */
+        Log& e();
+
 private:
         std::ostream& os;
 
@@ -90,9 +116,20 @@ private:
         Severity minSeverity = Verbose;
 };
 
+/**
+ * Returns a reference to a static Log instance using std::cout
+ *
+ * @return The static Log instance
+ */
+Log& log();
+
 #endif // _PICOLOG_HPP
 
 #ifdef PICOLOG_IMPL
+
+#include <iomanip>
+#include <ctime>
+#include <iostream>
 
 Log::Log(std::ostream& os)
         : os(os)
@@ -157,6 +194,32 @@ void Log::setMinSeverity(const Severity& severity)
 Log& Log::operator<<(ostream_manipulator om)
 {
         return operator<< <ostream_manipulator> (om);
+}
+
+Log& Log::v()
+{
+        return (*this)(Severity::Verbose);
+}
+
+Log& Log::d()
+{
+        return (*this)(Severity::Debug);
+}
+
+Log& Log::w()
+{
+        return (*this)(Severity::Warning);
+}
+
+Log& Log::e()
+{
+        return (*this)(Severity::Error);
+}
+
+Log& log()
+{
+        static Log log(std::cout);
+        return log;
 }
 
 #endif // PICOLOG_IMPL
