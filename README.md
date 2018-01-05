@@ -14,7 +14,7 @@ Either use the `log` function to get a reference to a `Log` instance using
 pico::log().d() << "This is message number " << 4 << std::endl;
 ~~~
 
-Or create your own `Log` with using a different `ostream`:
+Or create your own `Log` using a different `ostream`:
 ~~~c++
 std::ofstream file;
 file.open("test.txt");
