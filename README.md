@@ -1,4 +1,38 @@
 picolog
 =======
-
 A simple c++ log class that uses stream semantics.
+
+Installation
+------------
+Copy `picolog.hpp` into your projects include path. Done.
+
+How to use
+----------
+Either use the `log` function to get a reference to a `Log` instance using
+`std::cout`:
+~~~c++
+log().d() << "This is message number " << 4 << std::endl;
+~~~
+
+Or create your own `Log` with using a different `ostream`:
+~~~c++
+std::ofstream file;
+file.open("test.txt");
+
+Log log(file);
+
+// Don't forget to close the file when you are done with logging
+file.close();
+~~~
+
+Build the example
+-----------------
+You can use the Makefile and type `make all` or use a simple g++ command:
+~~~
+g++ -I. example.cpp -Wall -Wpedantic
+~~~
+
+License
+-------
+picolog uses the [zlib license](https://www.zlib.net/zlib_license.html) that
+is shipped with the header file.
