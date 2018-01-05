@@ -109,22 +109,24 @@ Log& Log::operator()(const Severity& severity)
         std::time_t t = std::time(nullptr);
         std::tm* tm = std::localtime(&t);
 
-        os << std::put_time(tm, "%H:%M:%S-");
+        os << std::put_time(tm, "%H:%M:%S ");
 
         switch (severity) {
                 case Verbose:
-                        os << "ver: ";
+                        os << "v";
                         break;
                 case Debug:
-                        os << "dbg: ";
+                        os << "d";
                         break;
                 case Warning:
-                        os << "wrn: ";
+                        os << "w";
                         break;
                 case Error:
-                        os << "err: ";
+                        os << "e";
                         break;
         }
+
+        os << ": ";
 
         return *this;
 }
