@@ -11,7 +11,7 @@ How to use
 Either use the `log` function to get a reference to a `Log` instance using
 `std::cout`:
 ~~~c++
-log().d() << "This is message number " << 4 << std::endl;
+pico::log().d() << "This is message number " << 4 << std::endl;
 ~~~
 
 Or create your own `Log` with using a different `ostream`:
@@ -19,7 +19,7 @@ Or create your own `Log` with using a different `ostream`:
 std::ofstream file;
 file.open("test.txt");
 
-Log log(file);
+pico::Log log(file);
 log.d() << "This is a test" << std::endl;
 
 // Don't forget to close the file when you are done with logging

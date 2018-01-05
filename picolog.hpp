@@ -23,6 +23,8 @@
 
 #include <sstream>
 
+namespace pico {
+
 class Log {
 public:
         enum Severity {
@@ -124,6 +126,8 @@ private:
  */
 Log& log();
 
+} // namespace pico
+
 #endif // _PICOLOG_HPP
 
 #ifdef PICOLOG_IMPL
@@ -131,6 +135,8 @@ Log& log();
 #include <iomanip>
 #include <ctime>
 #include <iostream>
+
+namespace pico {
 
 Log::Log(std::ostream& os)
         : os(os)
@@ -222,6 +228,8 @@ Log& log()
         static Log log(std::cout);
         return log;
 }
+
+} // namespace pico
 
 #endif // PICOLOG_IMPL
 
