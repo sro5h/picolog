@@ -26,6 +26,17 @@ log.d() << "This is a test" << std::endl;
 file.close();
 ~~~
 
+User types can easily be logged by overloading `operator<<`:
+~~~c++
+pico::Log& operator<<(Log& log, const UserType& u)
+{
+        return log << u.a << "," << u.b;
+}
+
+UserType u = { "test", 2.5f };
+log().d() << "A user type: " << u << std::endl;
+~~~
+
 Build the example
 -----------------
 You can use the Makefile and type `make all` or use a simple g++ command:
