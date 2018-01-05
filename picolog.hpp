@@ -1,5 +1,5 @@
 /*
-   picolog.hpp - 1.2.0
+   picolog.hpp - 1.3.0
 
    Author:
         Paul Meffle
@@ -15,6 +15,7 @@
         1.1.0 (26.09.2017) use operator() to set severity
         1.1.1 (28.09.2017) add shortcut for debug severity
         1.2.0 (05.01.2018) change log format
+        1.3.0 (05.01.2018) change log api
 */
 
 #ifndef _PICOLOG_HPP
