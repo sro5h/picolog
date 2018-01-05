@@ -6,7 +6,7 @@ HEADERS = picolog.hpp
 SOURCES = example.cpp
 OBJECTS = $(subst .cpp,.o,$(SOURCES))
 
-CFLAGS = -I.
+CFLAGS = -I. -Wall -Wpedantic
 
 all: $(PROJECT)
 
